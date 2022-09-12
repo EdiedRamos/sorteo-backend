@@ -17,27 +17,6 @@ class CompanyView(View):
   def dispatch(self, request, *args, **kwargs):
     return super().dispatch(request, *args, **kwargs)
   
-  # post rest method
-  def post(self, request):
-    post_data = json.loads(request.body)
-    # checking for duplicate nit
-    check = getById(post_data.get('nit'))
-    if len(check) > 0:
-      return JsonResponse({
-        'message': 'La empresa ya se encuentra registrada'
-      })
-    # registering the company
-    Company.objects.create(
-      name = post_data.get('name'),
-      address = post_data.get('address'),
-      nit = post_data.get('nit'),
-      phone = post_data.get('phone')
-    )
-    data = {
-      'message': 'success'
-    }
-    return JsonResponse(data)
-  
   # get rest method
   def get(self, request, nit = -1):
     if ~nit:
@@ -58,6 +37,27 @@ class CompanyView(View):
         'companies': companies
       }
     return JsonResponse(result)
+  
+  # post rest method
+  def post(self, request):
+    post_data = json.loads(request.body)
+    # checking for duplicate nit
+    check = getById(post_data.get('nit'))
+    if len(check) > 0:
+      return JsonResponse({
+        'message': 'La empresa ya se encuentra registrada'
+      })
+    # registering the company
+    Company.objects.create(
+      name = post_data.get('name'),
+      address = post_data.get('address'),
+      nit = post_data.get('nit'),
+      phone = post_data.get('phone')
+    )
+    data = {
+      'message': 'success'
+    }
+    return JsonResponse(data)
   
   # put rest method
   def put(self, request, nit = -1):
