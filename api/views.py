@@ -17,27 +17,6 @@ class CompanyView(View):
   def dispatch(self, request, *args, **kwargs):
     return super().dispatch(request, *args, **kwargs)
   
-  # get rest method
-  def get(self, request, nit = -1):
-    if ~nit:
-      companies = getById(nit)
-      if len(companies) > 0:
-        result = {
-          'message': 'success',
-          'company': companies[0]
-        }
-      else:
-        result = {
-          'message': 'Empresa no encontrada'
-        }
-    else:
-      companies = list(Company.objects.values())
-      result = {
-        'message': 'success',
-        'companies': companies
-      }
-    return JsonResponse(result)
-  
   # post rest method
   def post(self, request):
     post_data = json.loads(request.body)
@@ -58,6 +37,27 @@ class CompanyView(View):
       'message': 'success'
     }
     return JsonResponse(data)
+  
+  # get rest method
+  def get(self, request, nit = -1):
+    if ~nit:
+      companies = getById(nit)
+      if len(companies) > 0:
+        result = {
+          'message': 'success',
+          'company': companies[0]
+        }
+      else:
+        result = {
+          'message': 'Empresa no encontrada'
+        }
+    else:
+      companies = list(Company.objects.values())
+      result = {
+        'message': 'success',
+        'companies': companies
+      }
+    return JsonResponse(result)
   
   # put rest method
   def put(self, request, nit = -1):
