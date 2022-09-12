@@ -30,16 +30,13 @@ class CompanyView(View):
         result = {
           'message': 'Empresa no encontrada'
         }
-      return JsonResponse(result)
     else:
       companies = list(Company.objects.values())
-      return JsonResponse({
+      result = {
         'message': 'success',
         'companies': companies
-      })
-      # return JsonResponse({
-      #   'message': 'not necesary for the tecnhical test'
-      # })
+      }
+    return JsonResponse(result)
   
   # post rest method
   def post(self, request):
