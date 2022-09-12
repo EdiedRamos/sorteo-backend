@@ -55,7 +55,7 @@ class CompanyView(View):
       phone = post_data.get('phone')
     )
     data = {
-      'message': 'success'
+      'message': 'Empresa registrada'
     }
     return JsonResponse(data)
   

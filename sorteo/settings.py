@@ -53,7 +53,10 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware'
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_WHITELIST = [
+    'https://sorteo-frontend.vercel.app/'
+]
 
 ROOT_URLCONF = 'sorteo.urls'
 
